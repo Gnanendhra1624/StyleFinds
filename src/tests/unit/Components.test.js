@@ -22,8 +22,8 @@ test('Footer contains GitHub and LinkedIn links', () => {
 
   const links = screen.getAllByRole('link');
   expect(links.length).toBeGreaterThanOrEqual(2);
-  // GitHub link has an icon-only accessible name; assert by href instead
-  expect(document.querySelector('a[href="https://github.com"]')).toBeTruthy();
+  // GitHub link should point to the project repository
+  expect(document.querySelector('a[href="https://github.com/Gnanendhra1624/StyleFinds"]')).toBeTruthy();
   expect(screen.getByRole('link', { name: /LinkedIn/i })).toHaveAttribute('href', 'https://www.linkedin.com/feed/');
 });
 

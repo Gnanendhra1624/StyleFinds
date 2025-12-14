@@ -8,10 +8,12 @@ export const Footer = () => {
       <div className={styles.footerContent}>
         <div className={styles.socialLinks}>
           <a
-            href="https://github.com"
+            href="https://github.com/Gnanendhra1624/StyleFinds"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
+            aria-label="GitHub"
+            title="GitHub"
           >
             <Github size={20} />
           </a>
