@@ -28,8 +28,10 @@ export const Pagination = () => {
         onClick={() => setCurrentPage(currentPage - 1)}
         disabled={currentPage === 1}
         className={styles.paginationButton}
+        aria-label="Previous page"
+        title="Previous page"
       >
-        Previous
+        &lt;
       </button>
 
       {getPageNumbers().map(page => (
@@ -48,8 +50,10 @@ export const Pagination = () => {
         onClick={() => setCurrentPage(currentPage + 1)}
         disabled={currentPage === totalPages}
         className={styles.paginationButton}
+        aria-label="Next page"
+        title="Next page"
       >
-        Next
+        &gt;
       </button>
     </div>
   );

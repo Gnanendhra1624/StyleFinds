@@ -8,6 +8,11 @@ import { CartDrawer } from './components/CartDrawer/CartDrawer';
 import { Footer } from './components/Footer/Footer';
 import styles from './App.module.css';
 
+// Keep a short-lived record of the most recent fetch key so duplicate
+// initial fetches (for example caused by React StrictMode in dev) can
+// be ignored. Module-level so it survives mount/unmount cycles.
+const _lastFetch = { key: null, ts: 0 };
+
 const MainApp = () => {
   const { 
     products, 
@@ -16,14 +21,29 @@ const MainApp = () => {
     setLoading, 
     searchTerm, 
     currentPage, 
-    setTotalPages 
+    setTotalPages,
+    searchSignal,
+    effectiveQuery
   } = useApp();
 
   useEffect(() => {
     const fetchProducts = async () => {
+      const key = `${effectiveQuery}|${currentPage}`;
+      // If we've fetched the same key very recently, skip to avoid
+      // duplicate requests caused by dev-only StrictMode remounts.
+      if (_lastFetch.key === key && Date.now() - _lastFetch.ts < 5000) {
+        return;
+      }
+
+      _lastFetch.key = key;
+      _lastFetch.ts = Date.now();
+
       setLoading(true);
       try {
-        const data = await searchProducts(searchTerm, currentPage);
+        // Use the persistent `effectiveQuery` when fetching; it defaults
+        // to 'sunglasses' on first visit and can be set to empty string by
+        // the header when the user submits an empty query.
+        const data = await searchProducts(effectiveQuery, currentPage);
         setProducts(data.results || []);
         setTotalPages(data.pagination?.totalPages || 1);
       } catch (error) {
@@ -35,7 +55,7 @@ const MainApp = () => {
     };
 
     fetchProducts();
-  }, [searchTerm, currentPage, setProducts, setLoading, setTotalPages]);
+  }, [effectiveQuery, currentPage, searchSignal, setProducts, setLoading, setTotalPages]);
 
   return (
     <div className={styles.app}>

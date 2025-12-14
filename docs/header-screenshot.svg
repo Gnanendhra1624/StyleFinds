@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#3b3b3b" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" rx="6" fill="#f5f5f5" />
+
+  <!-- Header bar -->
+  <rect x="0" y="0" width="1200" height="72" fill="#ffffff" stroke="#eaeaea" />
+  <text x="28" y="46" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#1ea7a1" font-weight="700">StyleFinds</text>
+
+  <!-- Search box -->
+  <rect x="150" y="18" width="700" height="36" rx="18" fill="#f6f9f9" stroke="#e1e1e1"/>
+  <text x="170" y="42" font-family="Arial" font-size="14" fill="#9aa3a3">Search products...</text>
+  <rect x="862" y="18" width="36" height="36" rx="8" fill="#13bda3" />
+  <text x="873" y="40" font-family="Arial" font-size="18" fill="#fff">🔍</text>
+
+  <!-- Quick filters -->
+  <g font-family="Arial" font-size="14" fill="#556" opacity="0.9">
+    <text x="946" y="42">Shoes</text>
+    <rect x="1006" y="18" width="100" height="36" rx="18" fill="#13bda3" />
+    <text x="1040" y="44" font-size="14" fill="#fff">Sunglasses</text>
+  </g>
+
+  <!-- Hero / background -->
+  <rect x="0" y="72" width="1200" height="200" fill="url(#g)" />
+  <text x="50%" y="170" text-anchor="middle" font-family="Georgia, serif" font-size="48" fill="#ffffff" font-weight="700">Showing results for "sunglasses"</text>
+
+  <!-- Pagination -->
+  <g transform="translate(520,200)">
+    <rect x="-56" y="0" width="44" height="36" rx="8" fill="#d9d9d9" />
+    <text x="-36" y="24" font-family="Arial" font-weight="700" font-size="20">&lt;</text>
+    <rect x="0" y="0" width="36" height="36" rx="8" fill="#13bda3" />
+    <text x="18" y="24" font-family="Arial" font-weight="700" font-size="14" text-anchor="middle" fill="#fff">1</text>
+    <rect x="48" y="0" width="36" height="36" rx="8" fill="#fff" stroke="#eee" />
+    <text x="66" y="24" font-family="Arial" font-weight="700" font-size="14" text-anchor="middle">2</text>
+    <rect x="96" y="0" width="44" height="36" rx="8" fill="#fff" stroke="#eee" />
+    <text x="118" y="24" font-family="Arial" font-weight="700" font-size="20">&gt;</text>
+  </g>
+
+  <!-- Product cards (4) -->
+  <g transform="translate(70,240)" font-family="Arial">
+    <rect x="0" y="0" width="220" height="160" rx="12" fill="#fff" stroke="#eee" />
+    <rect x="8" y="8" width="204" height="110" rx="8" fill="#ddd" />
+    <text x="12" y="140" font-size="12" fill="#333">Good Day Sunshine Black And Silver Sunglasses</text>
+
+    <rect x="260" y="0" width="220" height="160" rx="12" fill="#fff" stroke="#eee" />
+    <rect x="268" y="8" width="204" height="110" rx="8" fill="#ddd" />
+    <text x="272" y="140" font-size="12" fill="#333">On The Road Black Sunglasses</text>
+
+    <rect x="520" y="0" width="220" height="160" rx="12" fill="#fff" stroke="#eee" />
+    <rect x="528" y="8" width="204" height="110" rx="8" fill="#ddd" />
+    <text x="532" y="140" font-size="12" fill="#333">On The Road Brown Sunglasses</text>
+
+    <rect x="780" y="0" width="220" height="160" rx="12" fill="#fff" stroke="#eee" />
+    <rect x="788" y="8" width="204" height="110" rx="8" fill="#ddd" />
+    <text x="792" y="140" font-size="12" fill="#333">Sunny Event Brown Sunglasses</text>
+  </g>
+</svg>

@@ -4,6 +4,7 @@ import { ProductCard } from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css';
 
 export const ProductList = () => {
+  
   const { products, cart, dispatch } = useApp();
 
   const handleAdd = (product) => {

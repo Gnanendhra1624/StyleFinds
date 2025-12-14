@@ -65,6 +65,8 @@ export const CartDrawer = () => {
                 <button
                   onClick={() => dispatch({ type: 'DELETE_ITEM', payload: item.id })}
                   className={styles.deleteButton}
+                  aria-label={`Delete ${item.name}`}
+                  data-testid={`delete-${item.id}`}
                 >
                   <Trash2 size={18} />
                 </button>

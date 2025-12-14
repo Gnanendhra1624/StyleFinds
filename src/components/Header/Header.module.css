@@ -16,6 +16,7 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -25,6 +26,7 @@
   font-size: 24px;
   font-weight: 700;
   color: #0f766e;
+  flex: 0 0 auto;
 }
 
 .logoWave {
@@ -41,7 +43,8 @@
 
 .searchForm {
   display: flex;
-  flex: 0 0 400px;
+  flex: 1 1 400px;
+  min-width: 0;
   position: relative;
 }
 
@@ -54,6 +57,80 @@
   outline: none;
   background-color: #f9fafb;
   transition: all 0.2s;
+}
+
+@media (max-width: 600px) {
+  .headerContent {
+    /* allow components to wrap naturally and reduce gap on small screens */
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .searchForm {
+    order: 2;
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .searchInput {
+    min-width: 0;
+  }
+
+  .searchButton {
+    right: 6px;
+    padding: 8px 12px;
+  }
+
+  .quickFilters {
+    flex: 0 0 auto;
+    overflow-x: auto;
+    justify-content: flex-start;
+    gap: 8px;
+    /* hide less important filters on very small screens */
+    max-width: 50%;
+  }
+
+  .filterBtn,
+  .filterBtnActive {
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+
+  .cartButton {
+    position: relative;
+    order: 1;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .searchForm {
+    order: 2;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .quickFilters {
+    display: none;
+  }
+
+  .searchButton {
+    padding: 6px 8px;
+    right: 6px;
+  }
 }
 
 .searchInput:focus {

@@ -25,7 +25,6 @@ export const Footer = () => {
             <Linkedin size={20} />
           </a>
         </div>
-        {/* footer text removed per design change */}
       </div>
     </footer>
   );

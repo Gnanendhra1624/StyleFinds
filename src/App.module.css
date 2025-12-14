@@ -41,6 +41,32 @@
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
+@media (max-width: 600px) {
+  .app {
+    /* fixed backgrounds cause issues on many mobile browsers */
+    background-attachment: scroll;
+  }
+
+  .main {
+    padding: 20px 12px;
+  }
+
+  .container {
+    padding: 0 8px;
+  }
+
+  .resultsHeading {
+    font-size: 26px;
+    text-align: left;
+    margin-bottom: 18px;
+  }
+
+  .loading,
+  .noResults {
+    padding: 28px 16px;
+  }
+}
+
 .loading {
   text-align: center;
   font-size: 18px;

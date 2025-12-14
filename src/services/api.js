@@ -1,4 +1,5 @@
 export const searchProducts = async (query, page = 1) => {
+  
   const url = `https://api.searchspring.net/api/search/search.json?q=${encodeURIComponent(query)}&resultsFormat=native&page=${page}&siteId=scmq7n`;
   
   try {

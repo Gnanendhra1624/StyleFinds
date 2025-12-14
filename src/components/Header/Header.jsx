@@ -5,21 +5,26 @@ import { useApp } from '../../context/AppContext';
 import styles from './Header.module.css';
 
 export const Header = () => {
-  const { searchTerm, setSearchTerm, setCurrentPage, cartCount, setIsCartOpen } = useApp();
+  const { searchTerm, setSearchTerm, setCurrentPage, cartCount, setIsCartOpen, triggerSearch } = useApp();
   const [inputValue, setInputValue] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (inputValue.trim()) {
-      setSearchTerm(inputValue.trim());
-      setCurrentPage(1);
-    }
+    const q = inputValue.trim();
+    // Always update searchTerm (ensures UI reflects the input value)
+    setSearchTerm(q);
+    setCurrentPage(1);
+    // Pass override explicitly so `effectiveQuery` is updated immediately
+    // and pagination will use the same query (including empty string).
+    triggerSearch(q);
   };
 
   const handleQuickFilter = (term) => {
     setInputValue(term);
     setSearchTerm(term);
     setCurrentPage(1);
+    // ensure an API request is sent for quick filters as well
+    triggerSearch(term);
   };
 
   return (

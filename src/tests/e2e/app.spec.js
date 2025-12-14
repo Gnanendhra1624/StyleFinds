@@ -1,7 +1,15 @@
 const { test, expect } = require('@playwright/test');
 
 test.describe('StyleFinds end-to-end', () => {
+  let apiCallCount = 0;
+
   test.beforeEach(async ({ page }) => {
+    // Reset counter and listen to page requests
+    apiCallCount = 0;
+    page.on('request', (req) => {
+      if (req.url().includes('/api/search/search.json')) apiCallCount += 1;
+    });
+
     // Intercept product API calls and return deterministic fixtures
     await page.route('**/api/search/search.json**', async (route) => {
       const url = route.request().url();
@@ -37,7 +45,8 @@ test.describe('StyleFinds end-to-end', () => {
 
       const payload = {
         results: q.toLowerCase().includes('jeans') ? jeans : sunglasses,
-        pagination: { totalPages: 1 }
+        // allow pagination interactions in tests
+        pagination: { totalPages: 3 }
       };
 
       await route.fulfill({
@@ -54,6 +63,8 @@ test.describe('StyleFinds end-to-end', () => {
     // Verify initial search term and products loaded
     await expect(page.locator('h1')).toContainText('sunglasses');
     await expect(page.locator('h3:has-text("Sunny Sunglasses")')).toBeVisible();
+    // Ensure only one request was made on first visit
+    expect(apiCallCount).toBe(1);
 
     // Add the same product twice to make quantity 2
     const firstAdd = page.locator('button[aria-label="Add to cart"]').first();
@@ -79,8 +90,10 @@ test.describe('StyleFinds end-to-end', () => {
     // Assert subtotal reflects quantity 2 (check inside cart drawer)
     await expect(cartDrawer.locator(`text=$${(price * 2).toFixed(2)}`).first()).toBeVisible();
 
-    // Remove item via delete button
-    await cartItem.locator('button').nth(2).click({ force: true });
+    // Remove item via delete button (use a deterministic selector)
+    const deleteBtn = cartItem.locator('button[data-testid^="delete-"]');
+    await deleteBtn.scrollIntoViewIfNeeded();
+    await deleteBtn.click({ force: true });
     // The cart item should be removed from the drawer
     await expect(cartDrawer.locator('h4:has-text("Sunny Sunglasses")')).toHaveCount(0);
 
@@ -92,5 +105,49 @@ test.describe('StyleFinds end-to-end', () => {
     // Ensure heading updates and new product appears
     await expect(page.locator('h1')).toContainText('jeans');
     await expect(page.locator('h3:has-text("Blue Jeans")')).toBeVisible();
+
+    // Press Enter with empty input — should send a request with q=""
+    await page.fill('input[placeholder="Search products..."]', '');
+    const resp = await Promise.all([
+      page.waitForResponse(resp => resp.url().includes('/api/search/search.json') && resp.status() === 200),
+      page.press('input[placeholder="Search products..."]', 'Enter')
+    ]).then(results => results[0]);
+
+    const reqUrl = resp.url();
+    expect(reqUrl).toContain('q=');
+    expect(reqUrl).not.toContain('jeans');
+
+    // The route fixture returns the default (sunglasses) when q is empty
+    await expect(page.locator('h3:has-text("Sunny Sunglasses")')).toBeVisible();
+
+    // Clicking a quick filter should send a request with that term
+    // Make sure cart is closed so it doesn't intercept the click; use
+    // force click if the close button is present but overlay intercepts.
+    const closeBtn = page.locator('[data-testid="close-cart"]');
+    if (await closeBtn.count() > 0) {
+      await closeBtn.click({ force: true });
+      await page.waitForSelector('[data-testid="close-cart"]', { state: 'hidden' });
+    }
+
+    const quickFilterResp = Promise.all([
+      page.waitForResponse(resp => resp.url().includes('/api/search/search.json') && resp.status() === 200),
+      page.click('text=Shoes')
+    ]).then(results => results[0]);
+
+    const qResp = await quickFilterResp;
+    const qUrl = new URL(qResp.url());
+    expect(qUrl.searchParams.get('q')).toBe('shoes');
+    await expect(page.locator('h1')).toContainText('shoes');
+
+    // Ensure any open cart drawer is closed so the pagination button is clickable
+    if (await page.isVisible('[data-testid="close-cart"]')) {
+      await page.click('[data-testid="close-cart"]');
+    }
+
+    // Now click Next to trigger pagination — the request should include q=""
+    await Promise.all([
+      page.waitForResponse(resp => resp.url().includes('/api/search/search.json') && resp.url().includes('page=2') && resp.status() === 200),
+      page.click('[aria-label="Next page"]')
+    ]);
   });
 });

@@ -58,10 +58,10 @@ test('Pagination next/previous call setCurrentPage', async () => {
 
   render(<Pagination />);
   const user = userEvent.setup();
-  await user.click(screen.getByText(/Next/i));
+  await user.click(screen.getByLabelText(/Next page/i));
   expect(mockSetCurrentPage).toHaveBeenCalledWith(3);
 
-  await user.click(screen.getByText(/Previous/i));
+  await user.click(screen.getByLabelText(/Previous page/i));
   expect(mockSetCurrentPage).toHaveBeenCalledWith(1);
 });
 

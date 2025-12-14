@@ -44,6 +44,9 @@
 @media (max-width: 480px) {
   .productImageContainer {
     height: 120px;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 3 / 4;
   }
 
   .productInfo {
@@ -52,6 +55,17 @@
 
   .productName {
     font-size: 13px;
+    min-height: initial;
+  }
+  
+  .productActions {
+    position: static;
+    margin-top: 8px;
+    justify-content: center;
+  }
+
+  .price {
+    font-size: 16px;
   }
 }
 

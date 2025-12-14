@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-// Default fallback asset placed in `public/` so the image is a real file
-// and can be replaced with the attached raster asset if desired.
 const DEFAULT_FALLBACK = '/no-image-available.png';
 
 export function ImageWithFallback({ src, alt, className, fallback = DEFAULT_FALLBACK, onLoad, ...rest }) {
