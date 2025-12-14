@@ -61,7 +61,6 @@
 
 @media (max-width: 600px) {
   .headerContent {
-    /* allow components to wrap naturally and reduce gap on small screens */
     flex-direction: row;
     align-items: center;
     gap: 8px;
@@ -91,7 +90,6 @@
     overflow-x: auto;
     justify-content: flex-start;
     gap: 8px;
-    /* hide less important filters on very small screens */
     max-width: 50%;
   }
 

@@ -21,19 +21,13 @@
   min-width: 44px;
 }
 
-/* Larger arrow buttons for previous/next to improve tap targets */
 .paginationButton[aria-label="Previous page"],
 .paginationButton[aria-label="Next page"] {
-  /* match the number buttons for consistent sizing */
-  /* make arrow buttons larger than number buttons while keeping
-     the number buttons unchanged */
   font-size: 18px;
   padding: 12px 14px;
   min-width: 52px;
   line-height: 1;
-  /* make arrows visually thicker without increasing size */
   font-weight: 800;
-  /* multiple subtle shadows create a faux-bold effect across pixels */
   text-shadow:
     0.4px 0   currentColor,
    -0.4px 0   currentColor,
@@ -52,7 +46,6 @@
   color: white;
 }
 
-/* Keep active page visually consistent on hover (stay blue) */
 .paginationButton.paginationButtonActive:hover:not(:disabled) {
   background-color: #14b8a6;
   color: white;

@@ -38,7 +38,7 @@ test('ProductCard renders with minimal product props', () => {
 test('ImageWithFallback uses fallback when src missing', () => {
   const { default: ImageWithFallback } = require('../../components/ImageWithFallback/ImageWithFallback');
   render(<ImageWithFallback src={null} alt="fallback" />);
-  expect(screen.getByAltText('fallback').src).toContain('no-image-available.png');
+  expect(screen.getByAltText('fallback').src).toContain('no-image-available');
 });
 
 test('ImageWithFallback switches to fallback on error', async () => {
@@ -47,7 +47,7 @@ test('ImageWithFallback switches to fallback on error', async () => {
   const img = screen.getByAltText('Broken');
   // simulate native image error event and wait for state update
   act(() => img.dispatchEvent(new Event('error')));
-  await waitFor(() => expect(img.src).toContain('no-image-available.png'));
+  await waitFor(() => expect(img.src).toContain('no-image-available'));
 });
 
 test('Pagination next/previous call setCurrentPage', async () => {

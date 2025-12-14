@@ -28,16 +28,13 @@
 }
 
 .productImageContainer.portrait {
-  /* prefer showing top area for portrait images */
   --img-pos: 50% 8%;
 }
 .productImageContainer.portraitTall {
-  /* very tall images should show full image to avoid chopping legs */
   --img-pos: 50% 6%;
 }
 
 .productImageContainer.landscapeWide {
-  /* wide images can be slightly centered lower */
   --img-pos: 50% 28%;
 }
 
@@ -73,7 +70,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* bias crop toward the top so faces/heads remain visible; adjustable per-image */
   object-position: var(--img-pos, 50% 16%);
   display: block;
 }
