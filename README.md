@@ -1,5 +1,7 @@
 # StyleFinds
 
+**Live demo:** https://glittering-faloodeh-819b47.netlify.app/ — view the running application
+
 <p align="center">
 <img src="./public/stylefinds.PNG" alt="stylefinds" width="900" height="300" style="max-width:100%;height:auto;">
 </p>
