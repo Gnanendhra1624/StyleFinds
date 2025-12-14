@@ -1,7 +1,7 @@
 # StyleFinds
 
 <p align="center">
-<img src="./public/stylefinds.PNG" alt="stylefinds" width="550px">
+<img src="./public/stylefinds.PNG" alt="stylefinds" width="900" height="300" style="max-width:100%;height:auto;">
 </p>
 
 StyleFinds is a small, modern e-commerce product search and cart demo app built with React.
