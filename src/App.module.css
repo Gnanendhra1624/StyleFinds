@@ -43,7 +43,6 @@
 
 @media (max-width: 600px) {
   .app {
-    /* fixed backgrounds cause issues on many mobile browsers */
     background-attachment: scroll;
   }
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ShoppingCart, Search } from 'lucide-react';
 import { useApp } from '../../context/AppContext';

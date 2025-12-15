@@ -8,9 +8,7 @@ import { CartDrawer } from './components/CartDrawer/CartDrawer';
 import { Footer } from './components/Footer/Footer';
 import styles from './App.module.css';
 
-// Keep a short-lived record of the most recent fetch key so duplicate
-// initial fetches (for example caused by React StrictMode in dev) can
-// be ignored. Module-level so it survives mount/unmount cycles.
+
 const _lastFetch = { key: null, ts: 0 };
 
 const MainApp = () => {
@@ -29,8 +27,6 @@ const MainApp = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const key = `${effectiveQuery}|${currentPage}`;
-      // If we've fetched the same key very recently, skip to avoid
-      // duplicate requests caused by dev-only StrictMode remounts.
       if (_lastFetch.key === key && Date.now() - _lastFetch.ts < 5000) {
         return;
       }
@@ -40,9 +36,6 @@ const MainApp = () => {
 
       setLoading(true);
       try {
-        // Use the persistent `effectiveQuery` when fetching; it defaults
-        // to 'sunglasses' on first visit and can be set to empty string by
-        // the header when the user submits an empty query.
         const data = await searchProducts(effectiveQuery, currentPage);
         setProducts(data.results || []);
         setTotalPages(data.pagination?.totalPages || 1);
